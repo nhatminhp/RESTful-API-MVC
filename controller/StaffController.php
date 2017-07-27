@@ -44,6 +44,13 @@ class StaffController
         return 0;
     }
 
+    public function exportArray(StaffEntity $staff_e) {
+        parse_str(file_get_contents("php://input"), $staffArray);
+        $staff_e->setName($staffArray["name"]);
+        $staff_e->setEmail($staffArray["email"]);
+        $staff_e->setPhone($staffArray["phone"]);
+    }
+
     public function convert(StaffEntity $staff_e) {
         $staffArray = array('id' => $staff_e->getId(),
                             'name' => $staff_e->getName(),
@@ -102,53 +109,5 @@ class StaffController
             echo "Failed to delete";
         }
     }
-
-//    public function process() {
-//        switch ($this->getMethod()) {
-//            case 'GET':
-//                if (empty($this->handleUrl())) {
-//                    $this->_view->displayJson($this->_model->getAll());
-//                } else {
-//                    $toView = $this->_model->getStaffById($this->handleUrl());
-//                    $this->_view->displayJson($this->convert($toView));
-//                }
-//                break;
-//            case 'POST':
-//                $staff_e = new StaffEntity();
-//                $check = $this->_model->createStaff($staff_e);
-//                if ($check) {
-//                    $this->_view->displayJson($this->convert($staff_e));
-//                    echo "<br/>";
-//                    echo "Successfully Created";
-//                } else {
-//                    echo "Failed to create.";
-//                }
-//                break;
-//            case 'PUT':
-//                $staff_e = $this->_model->getStaffById($this->handleUrl());
-//                $check = $this->_model->updateStaff($staff_e);
-//                if ($check) {
-//                    echo "Successfully updated.";
-//                    $this->_view->displayJson($this->convert($staff_e));
-//                } else {
-//                    echo "Failed to update";
-//                }
-//                break;
-//            case  'DELETE':
-//                $staff_e = $this->_model->getStaffById($this->handleUrl());
-//                $check = $this->_model->deleteStaff($staff_e);
-//                if ($check) {
-//                    echo "Successfully deleted";
-//                } else {
-//                    echo "Failed to delete";
-//                }
-//                break;
-//            default: echo "HTTP method not found"; break;
-//        }
-//    }
-
-
-
-
 }
-//$controller = new StaffController();
+

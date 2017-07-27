@@ -10,6 +10,7 @@ namespace Model;
 
 use Model\DBConfig as DBConfig;
 use Entity\StaffEntity;
+use Controller\StaffController;
 
 class StaffModel
 {
@@ -33,12 +34,11 @@ class StaffModel
 
     }
 
+
     public function createStaff(StaffEntity $staff_e) {
 
-        parse_str(file_get_contents("php://input"), $staffArray);
-        $staff_e->setName($staffArray["name"]);
-        $staff_e->setEmail($staffArray["email"]);
-        $staff_e->setPhone($staffArray["phone"]);
+        $ctrl = new StaffController();
+        $ctrl->exportArray($staff_e);
 
         $name = $staff_e->getName();
         $email = $staff_e->getEmail();
@@ -65,12 +65,9 @@ class StaffModel
     }
 
     public function updateStaff(StaffEntity $staff_e) {
-
-        parse_str(file_get_contents("php://input"), $staffArray);
-
-        $staff_e->setName($staffArray["name"]);
-        $staff_e->setEmail($staffArray["email"]);
-        $staff_e->setPhone($staffArray["phone"]);
+        
+        $ctrl = new StaffController();
+        $ctrl->exportArray($staff_e);
 
         $id = $staff_e->getId();
         $name = $staff_e->getName();
